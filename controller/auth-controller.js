@@ -15,7 +15,7 @@ class Authenticator {
         try {
             const result = await this.user_service.login_user()
             if (result === 'incorrect username or password') {
-                return this.res.status(400).json({incorrect: 'incorrect username or password'})        
+                return this.res.status(400).json({incorrect: result})        
             }else if (result) {
                 jwt.sign({email: this.req.body.email}, process.env.ACCESS_TOKEN_SECRET, (err, access_token) => {
                     if (err) throw err;
