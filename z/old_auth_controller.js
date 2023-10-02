@@ -1,6 +1,5 @@
 const User_service = require('../service/user-service')
 const dotenv = require('dotenv')
-const session = require('express-session')
 const jwt = require('jsonwebtoken')
 dotenv.config()
 
@@ -18,8 +17,10 @@ class Authenticator {
             if (result === 'incorrect username or password') {
                 return this.res.status(400).json({incorrect: result})        
             }else if (result) {
-                this.req.session.email = this.req.body.email
-                this.res.status(200).json({user: this.req.body.email})
+                jwt.sign({email: this.req.body.email}, process.env.ACCESS_TOKEN_SECRET, (err, access_token) => {
+                    if (err) throw err;
+                    this.res.status(200).json({accesstoken: access_token})
+                });   
             }else {
                 return this.res.status(400).json({incorrect: 'incorrect username or password'}) 
             }  
@@ -46,5 +47,3 @@ class Authenticator {
 }
 
 module.exports = Authenticator
-
-
