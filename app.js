@@ -8,11 +8,15 @@ const cookieParser = require('cookie-parser')
 const path = require('path')
 const fs = require('fs')
 const session = require('express-session')
+const redis = require('ioredis')
+
+let RedisStore = require('connect-redis');
 
 const app = express()
+let redisClient = redis.createClient()
 
 // All default middle-ware
-app.use(logEvent)
+app.use(logEvent)  
 app.use(cors(corsOption))
 app.use(urlencoded({extended: true}))
 app.use(express.json())
@@ -21,10 +25,11 @@ app.use(cookieParser())
 
 app.use(
     session({
+        store: new RedisStore.default({ client: redisClient }),
         secret: 'my secret',
         resave: false,
         saveUninitialized: true,
-        cookie: {maxAge: 60000}
+        cookie: {maxAge: 600000}
     })
 )
 
