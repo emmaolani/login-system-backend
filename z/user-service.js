@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const User_model = require('../Model/userModel')
+const User_model = require('./userModel')
 
 
 class user_service {
@@ -15,9 +15,8 @@ class user_service {
             if (is_user_exist) {
                 return 'user already exist'        
             }  
-    
-            const hash = await bcrypt.hash(password, 10)
-
+            const hash = await bcrypt.hash(this.password, 10)
+            this.user_model.password = hash
             const saved_user = await this.user_model.addUser()
             if (saved_user) {
                 return 'user has been created'    
@@ -36,7 +35,6 @@ class user_service {
                 return 'incorrect username or password'
             }
             const match = await bcrypt.compare(this.password, stored_user.password)
-            
             return match
            
         } catch (error) {

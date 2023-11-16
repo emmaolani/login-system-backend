@@ -8,7 +8,8 @@ const options = {
             callback( new Error('you do not have permission to access this page'))
         }
     },
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 200,
+    credentials: true
 }
 
 module.exports = options

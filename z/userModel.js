@@ -1,5 +1,6 @@
 const fs = require('fs/promises')
 const path = require('path')
+const bcrypt = require('bcrypt')
 
 
 class User_model {
@@ -8,7 +9,7 @@ class User_model {
         this.password = password
         this.db_path = path.join(__dirname, 'model.json')
     }
-
+    
     async addUser(){
         const raw_data = await fs.readFile(this.db_path)
         const data = JSON.parse(raw_data)
