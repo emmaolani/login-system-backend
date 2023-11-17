@@ -1,9 +1,10 @@
 const bcrypt = require('bcrypt')
-const {identifyUser} = require('../Model/user')
+const {getUser} = require('../Model/user')
 
-const loginService = async (email, password)=>{
+const loginService = async (req)=>{
     try {
-        const stored_user = await identifyUser(email)
+        const stored_user = await getUser(req)
+        console.log(stored_user)
         if (stored_user === undefined) {
             return [false, stored_user]
         }

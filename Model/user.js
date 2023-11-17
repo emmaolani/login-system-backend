@@ -1,6 +1,7 @@
 const fs = require('fs/promises')
 const path = require('path')
 const db_path = path.join(__dirname, 'model.json')
+const mysql = require('mysql2')
 
 const addUser = async (user)=>{
     const raw_data = await fs.readFile(db_path)
@@ -34,24 +35,18 @@ const checkEmailConflict = async (userEmail)=>{
         console.log(error)
     }
 }
-const identifyUser = async (userId)=>{
+
+const getUser = async (req)=>{
     try {
-        let raw_data = await fs.readFile(db_path)
-        let data = JSON.parse(raw_data)
-        if (data.users.length > 0) {
-            for (let i = 0; i < data.users.length; i++) {
-                if (data.users[i].email === userId) {
-                    const user_info = {
-                        email: data.users[i].email, 
-                        password: data.users[i].password
-                    } 
-                    return user_info          
-                }                
-            }  
-        }
+        const connection = req.db
+        let user_email = req.body.email
+        console.log(user_email);
+        let sql = mysql.format('SELECT * FROM user WHERE email = ?' , [user_email]) 
+        let query = await connection.execute(sql);
+        return query
     } catch (error) {
         console.log(error);
     }
 }
 
-module.exports = {addUser, identifyUser, checkEmailConflict}
+module.exports = {addUser, getUser, checkEmailConflict}
