@@ -3,17 +3,17 @@ const {getUser} = require('../Model/user')
 
 const loginService = async (req)=>{
     try {
-        const stored_user = await getUser(req)
-        console.log(stored_user)
-        if (stored_user === undefined) {
-            return [false, stored_user]
+        let data = req.body
+        const result = await getUser(data.email, req.db)
+        if (result[0].length == 0) {
+            return [false, null]
         }
-        const match = await bcrypt.compare(password, stored_user.password)
+        const stored_user = result[0][0]
+        const match = await bcrypt.compare(data.password, stored_user.password)
         return [match, stored_user ]  
         
     } catch (error) {
-        console.log(error)
-        return error
+        throw error
     } 
 }
 
