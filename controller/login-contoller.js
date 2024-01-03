@@ -9,7 +9,6 @@ const {loginService} = require('../service/login_service')
             console.log(req.session.id)
             return res.status(200).json({message: "successful"})
         }else{
-            console.log('here2');
             return res.status(400).json({message: 'incorrect username or password'}) 
         }  
     } catch (error) {
