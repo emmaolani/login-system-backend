@@ -1,6 +1,6 @@
 const whiteList = ['https://www.mysite.com', 'http://localhost:4000', 'http://127.0.0.1:5500', 'http://172.20.10.3:3000',  'http://localhost:3000']
 
-const options = {
+const corsOptions = {
     origin: (origin, callback) => {
         if (whiteList.indexOf(origin) !== -1 || !origin) {
             callback(null, true)
@@ -12,4 +12,4 @@ const options = {
     credentials: true
 }
 
-module.exports = options
+module.exports = corsOptions

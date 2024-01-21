@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise')
 require('dotenv').config()
 const password = process.env.DATABASE_PASSWORD
 
-const connectdb = async (server) =>{
+const connectToDataBase = async (server) =>{
     try {
         const db = await mysql.createConnection({
             host: 'localhost',
@@ -19,4 +19,4 @@ const connectdb = async (server) =>{
 }
 
 
-module.exports = { connectdb }
+module.exports = { connectToDataBase }

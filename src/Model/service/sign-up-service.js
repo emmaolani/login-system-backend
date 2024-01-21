@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const {addUser, getUser} = require('../Model/user')
+const {addUser, getUser} = require('../src/Model/user')
 
 const register_user = async (req)=>{
     try {

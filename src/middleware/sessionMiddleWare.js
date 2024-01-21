@@ -10,8 +10,5 @@ const sessionMiddleware = session({
     saveUninitialized: true,
     cookie: {maxAge: 200000}
 })
-const useSessionMiddlewareForWebSocketConnnections = async (req, res, next)=>{
-    return sessionMiddleware(req, res, next)
-}
 
-module.exports = {sessionMiddleware, useSessionMiddlewareForWebSocketConnnections}
+module.exports = {sessionMiddleware}

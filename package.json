@@ -1,10 +1,12 @@
 {
+    "type": "module",
     "name": "myserver",
     "version": "1.0.0",
     "description": "shopping",
     "main": "app.js",
     "scripts": {
-        "start": "nodemon"
+        "start": "nodemon",
+        "test" : "jest"
     },
     "author": "emmanuel",
     "license": "ISC",
@@ -27,6 +29,7 @@
         "socket.io": "^4.7.2"
     },
     "devDependencies": {
-        "@types/express-session": "^1.17.8"
+        "@types/express-session": "^1.17.8",
+        "jest": "^29.7.0"
     }
 }
